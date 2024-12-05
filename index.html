@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventura Interativa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+        #game-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+        }
+        h1 {
+            color: #333;
+        }
+        .text {
+            margin: 20px 0;
+            font-size: 18px;
+        }
+        .choices {
+            margin-top: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <h1>Bem-vindo à Aventura!</h1>
+    <p class="text" id="story">Você acorda em uma floresta misteriosa. O que você vai fazer?</p>
+    <div class="choices">
+        <button class="button" onclick="makeChoice(1)">Explorar a floresta</button>
+        <button class="button" onclick="makeChoice(2)">Gritar por ajuda</button>
+    </div>
+</div>
+
+<script>
+    let currentStage = 0;
+
+    const storyText = [
+        "Você acorda em uma floresta misteriosa. O que você vai fazer?",
+        "Você decide explorar a floresta. Enquanto caminha, ouve um barulho vindo de um arbusto.",
+        "Você decide gritar por ajuda. A única resposta é o eco da sua própria voz. O que você fará agora?",
+        "Você se aproxima do arbusto e encontra uma criatura estranha. Ela parece amigável. O que fazer?",
+        "Você decide ignorar o arbusto e continuar caminhando. Após um tempo, você encontra uma estrada. Você segue por ela?",
+        "A criatura estranha não é tão amigável quanto parecia. Ela te ataca! Fim do jogo."
+    ];
+
+    const choices = [
+        ["Explorar a floresta", "Gritar por ajuda"],
+        ["Investigar o arbusto", "Ignorar o arbusto"],
+        ["Seguir pela estrada", "Tentar encontrar outro caminho"],
+        ["Fugir da criatura", "Lutar com a criatura"],
+        ["Seguir pela estrada", "Voltar para a floresta"]
+    ];
+
+    function updateStory() {
+        const storyElement = document.getElementById('story');
+        const buttons = document.querySelectorAll('.button');
+        
+        // Atualiza o texto da história
+        storyElement.textContent = storyText[currentStage];
+
+        // Atualiza as opções de escolha
+        if (currentStage < choices.length) {
+            buttons[0].textContent = choices[currentStage][0];
+            buttons[1].textContent = choices[currentStage][1];
+        } else {
+            buttons[0].textContent = "Reiniciar";
+            buttons[1].style.display = "none";
+        }
+    }
+
+    function makeChoice(choice) {
+        if (currentStage === 0 && choice === 1) {
+            currentStage = 1;
+        } else if (currentStage === 0 && choice === 2) {
+            currentStage = 2;
+        } else if (currentStage === 1 && choice === 1) {
+            currentStage = 3;
+        } else if (currentStage === 1 && choice === 2) {
+            currentStage = 4;
+        } else if (currentStage === 2 && choice === 1) {
+            currentStage = 5;
+        } else if (currentStage === 2 && choice === 2) {
+            currentStage = 6;
+        } else if (currentStage === 3 && choice === 1) {
+            currentStage = 6;
+        } else if (currentStage === 3 && choice === 2) {
+            currentStage = 6;
+        } else if (currentStage === 4 && choice === 1) {
+            currentStage = 7;
+        } else if (currentStage === 4 && choice === 2) {
+            currentStage = 8;
+        }
+
+        updateStory();
+    }
+
+    updateStory();
+</script>
+
+</body>
+</html>
